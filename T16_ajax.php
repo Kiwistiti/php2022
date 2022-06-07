@@ -40,7 +40,7 @@
                         $("#donnees").html(donnees);
                     },
                     error : function(){
-                        $("#donnees").html("La requête n'a pas abouti");
+                        $("#donnees").html("La marque n'existe pas, ou alors ... Problème !");
                     }
                     
                 });
