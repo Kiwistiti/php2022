@@ -31,6 +31,7 @@
                         <a class="dropdown-item" href="T12_detaildb.php" >Detail DB</a>
                         <a class="dropdown-item" href="T13_liredbajax.php">Lire DB Ajax</a>
                         <a class="dropdown-item" href="T14_detaildbajax.php">Detail DB Ajax</a>
+                        <a class="dropdown-item" href="T15_ajoutdb.php">Faire un ajout</a>
                     </div>
                 </li>
                 <li class="nav-item">
