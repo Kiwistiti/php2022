@@ -1,6 +1,6 @@
 <?php
     require('functionnettoyer.php');
-    $value = nettoyer($_GET['value']);
+    $value = nettoyer($_GET['ligne']);
     
         switch($value){
             case 1: 

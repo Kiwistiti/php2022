@@ -34,7 +34,7 @@
                 //alert($(this).val());
                 $.ajax({                            //Activer ajax
                     type:'GET',
-                    url:'T16_detailajax.php?value='+$(this).val(),
+                    url:'T16_detailajax.php?ligne='+$(this).val(),
                     timeout:3000,                   //Si la requête ne s'exécute pas après 3s
                     success :function(donnees){
                         $("#donnees").html(donnees);
