@@ -2,7 +2,6 @@
     require('functionnettoyer.php');
     $value = nettoyer($_GET['value']);
     
-    
         switch($value){
             case 1: 
                 echo "Fondée par Bill Gates";
