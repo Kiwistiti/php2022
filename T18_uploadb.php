@@ -14,7 +14,7 @@
         <div class="container">
             <h1>Upload d'un fichier - TEST</h1>
             <div class="container">
-                <form action="T18_upload.php" method="post" enctype="multipart/form-data">   <!--enctype pour dire qu'il va receptionner un fichier-->
+                <form action="T18_uploadb.php" method="post" enctype="multipart/form-data">   <!--enctype pour dire qu'il va receptionner un fichier-->
                     <div class="form-group">
                         <label for="file">Sélectionner un ficher</label>
                         <input type="file" name="file" id="file" class="form-control-file">
@@ -22,6 +22,19 @@
                         <button type="submit" class="btn btn-warning" value="Upload Image" name="btnUpload">Upload file</button>
                     </div>
                 </form>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 my-3">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button class="btn btn-info" id="list">ListView</button>
+                                <button class="btn btn-danger" id="grid">Grid View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <?php
