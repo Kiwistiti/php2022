@@ -11,32 +11,8 @@
     </head>
     <body>
         <?php include("menu.php") ?>
-        <div class="container">
-            <h1>Upload d'un fichier - TEST</h1>
-            <div class="container">
-                <form action="T18_uploadb.php" method="post" enctype="multipart/form-data">   <!--enctype pour dire qu'il va receptionner un fichier-->
-                    <div class="form-group">
-                        <label for="file">Sélectionner un ficher</label>
-                        <input type="file" name="file" id="file" class="form-control-file">
-                        <!-- <input type="hidden" name="MAX_FILE_SIZE" value=512000>     A éviter car petit malin peut modifier la value  -->
-                        <button type="submit" class="btn btn-warning" value="Upload Image" name="btnUpload">Upload file</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 my-3">
-                        <div class="pull-right">
-                            <div class="btn-group">
-                                <button class="btn btn-info" id="list">List View</button>
-                                <button class="btn btn-danger" id="grid">Grid View</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        
+       
             <?php
                 if($_SERVER['REQUEST_METHOD'] == "POST")
                 {
@@ -57,11 +33,11 @@
                     //Test pour vérifier le type du fichier
                     if($verifier != false)
                     {
-                        echo "Ce fichier est de type ".$verifier["mime"]."<br>";
+                        //echo "Ce fichier est de type ".$verifier["mime"]."<br>";
                     }
                     else
                     {
-                        echo "Mauvaise extension ! <br>";
+                        //echo "Mauvaise extension ! <br>";
                         $uploadOK = 0;
                     }
 
@@ -69,21 +45,21 @@
 
                     if(file_exists($fichier))
                     {
-                        echo "Le fichier est déjà présent sur le serveur";
+                        //echo "Le fichier est déjà présent sur le serveur <br>";
                         $uploadOK = 0;
                     }
 
                     //Vérifier si taille requise
                     if($_FILES["file"]["size"] > 512000)            //Plus petite que +- 500ko   ou avec $verifier["size"]
                     {
-                        echo "Votre fichier est trop gros";
+                        //echo "Votre fichier est trop gros <br>";
                         $uploadOK = 0;
                     }
 
                     //vérifier l'extension
                     if($imagetype !="jpg" && $imagetype !="png" && $imagetype !="gif" && $imagetype !="jpeg")
                     {
-                        echo "L'image n'a pas la bonne extension";
+                        //echo "L'image n'a pas la bonne extension";
                         $uploadOK = 0;
                     }
 
@@ -101,7 +77,40 @@
                     }
                     
                 }
+                else {
             ?>
+                 <div class="container">
+            <h1>Upload d'un fichier - TEST</h1>
+            <div class="container">
+                <form action="T18_uploadb.php" method="post" enctype="multipart/form-data">   <!--enctype pour dire qu'il va receptionner un fichier-->
+                    <div class="form-group">
+                        <label for="file">Sélectionner un ficher</label>
+                        <input type="file" name="file" id="file" class="form-control-file">
+                        <!-- <input type="hidden" name="MAX_FILE_SIZE" value=512000>     A éviter car petit malin peut modifier la value  -->
+                        <button type="submit" class="btn btn-warning" value="Upload Image" name="btnUpload">Upload file</button>
+                    </div>
+                </form>
+            </div>
+            
+            <?php } ?>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 my-3">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button class="btn btn-info" id="list">List View</button>
+                                <button class="btn btn-danger" id="grid">Grid View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="images" class="row view-group">
+
+
+            </div>
+
             <br><br><br>
         </div>
         <?php include("footer.php") ?>

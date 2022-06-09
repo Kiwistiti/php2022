@@ -31,7 +31,8 @@
                         <a class="dropdown-item" href="T12_detaildb.php" >Detail DB</a>
                         <a class="dropdown-item" href="T13_liredbajax.php">Lire DB Ajax</a>
                         <a class="dropdown-item" href="T14_detaildbajax.php">Detail DB Ajax</a>
-                        
+                        <a class="dropdown-item" href="T18_upload.php">Uploader une image</a>
+                        <a class="dropdown-item" href="T18_uploadb.php">Uploader une image et affichage </a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -39,8 +40,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownDB">
                         <a class="dropdown-item" href="T15_ajoutdb.php">Faire un ajout</a>
                         <a class="dropdown-item" href="T17_modifierdb.php">Faire une modif</a>
-                        <a class="dropdown-item" href="T18_upload.php">Uploader une image</a>
-                        <a class="dropdown-item" href="T18_uploadb.php">Uploader une image et affichage </a>
+                        
                     </div>
                 </li>
                 <li class="nav-item">
