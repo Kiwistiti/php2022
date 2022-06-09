@@ -25,11 +25,11 @@
                     $tailleAutorisee = 512000;
 
                     //Récup infos
-                    $file = $_FILES['file'];
-                    $nomTemp = $_FILE['file']['tmp_name'];
-                    $extension = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));       //Récup l'extension du fichier
-                    $verifier = getimagesize($_FILES["file"]["tmp_name"]);
-                    $tailleActuelle = $verifier['size'];            // ou $_FILES['file']['size'] avant
+                    $filename = $_FILES['file']['name'];
+                    $nomTemp = $_FILES['file']['tmp_name'];
+                    $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));       //Récup l'extension du fichier
+                    $tailleActuelle = $_FILES['file']['size'];            // ou $_FILES['file']['size'] avant
+
 
                     //S'assurer que fichier pas vide
                     if($nomTemp=="" && $tailleActuelle=="")
@@ -50,13 +50,13 @@
                     {
                         if ($tailleActuelle < $tailleAutorisee)
                         {
-                            if(in_array($extensions, $extensionsAutorisees))
+                            if(in_array($extension, $extensionsAutorisees))
                             {
-                                if (move_uploaded_file($_FILES["file"]["tmp_name"],$fichier)) // Envoye le fichier avec un nom provisoire vers le dossier avec son nom définitif
+                                if (move_uploaded_file($nomTemp, $dossier."/".$nouveaunom.".".$extension)) // Envoye le fichier avec un nom provisoire vers le dossier avec son nom définitif
                                 {
                                     echo "Fichier uploadé <br>";
                                     ?>
-                                        <a href="<?= $fichier ?>" class="btn btn-dark">Lien vers le fichier uploadé</a>
+                                        <a href="<?= $dossier."/".$nouveaunom.".".$extension ?>" class="btn btn-dark">Lien vers le fichier uploadé</a>
                                     <?php
                                 }
                                 else
@@ -97,24 +97,35 @@
             </div>
             
             <?php } ?>
-
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 my-3">
-                        <div class="pull-right">
-                            <div class="btn-group">
-                                <button class="btn btn-info" id="list">List View</button>
-                                <button class="btn btn-danger" id="grid">Grid View</button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 my-3">
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button class="btn btn-info" id="list">List View</button>
+                                    <button class="btn btn-danger" id="grid">Grid View</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="images" class="row view-group">
+                
+                    <?php
+                        $dossier = "upload/";
+                        $fichiers = scandir($dossier);
+                        //var_dump($fichier);
+                        foreach ($fichiers as $fichier)
+                        {
+                            ?>
+                                <img src=<?=$dossier."/".$fichier?> alt="">
+                            <?php
+                        }
+                    ?>
+
+                </div>
             </div>
-            <div id="images" class="row view-group">
-
-
-            </div>
-
             <br><br><br>
         </div>
         <?php include("footer.php") ?>
