@@ -40,16 +40,33 @@
                     $verifier = getimagesize($_FILES["file"]["tmp_name"]);
                     //var_dump($verifier);
 
+                    //Test pour vérifier le type du fichier
                     if($verifier != false)
                     {
                         echo "Ce fichier est de type ".$verifier["mime"]."<br>";
                     }
                     else
                     {
-                        echo "Mauvaise extension !";
+                        echo "Mauvaise extension ! <br>";
                         $uploadOK = 0;
                     }
 
+                    //test si fichier existe déjà
+
+                    if(file_exists($fichier))
+                    {
+                        echo "Le fichier est déjà présent sur le serveur";
+                        $uploadOK = 0;
+                    }
+
+                    //Vérifier si taille requise
+                    if($_FILES["file"]["size"] > 500000)            //Plus petite que +- 500ko
+                    {
+                        echo "Votre fichier est trop gros";
+                        $uploadOK = 0;
+                    }
+
+                    // Test si on peut upload
                     if ($uploadOK == 0)
                     {
                         echo "Votre fichier n'est pas uploadé";                        
@@ -61,7 +78,6 @@
                             <a href="<?= $fichier ?>" class="btn btn-dark">Lien vers le fichier uploadé</a>
                         <?php
                     }
-
                     
                 }
             ?>
