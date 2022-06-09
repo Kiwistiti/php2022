@@ -16,68 +16,72 @@
             <?php
                 if($_SERVER['REQUEST_METHOD'] == "POST")
                 {
-                    var_dump($_FILES);
-                    $uploadOK = 1;              //Bool => Tant que tout est bon sinon 0 => pas d'upload
-                    //Extraction des infos dossier fichier et extention
+                    $uploadOK = 1; 
+
+                    //CONSTANTES
+                    $nouveaunom = bin2hex(openssl_random_pseudo_bytes(16));     //Choisit le nom automatiquement                    
                     $dossier = "upload/";       //affectation du dossier
-                    $fichier = $dossier.basename($_FILES["file"]["name"]);
-                                        // Basename est une fonction qui permet de mettre le nom d'un fichier
+                    $extensionsAutorisees = array("jpg","png","gif","jpeg","webp");
+                    $tailleAutorisee = 512000;
 
-                    
-                    $imagetype = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));       //Récup l'extension du fichier
-                    //var_dump($imagetype); 
-                    //Vérification de l'extension
+                    //Récup infos
+                    $file = $_FILES['file'];
+                    $nomTemp = $_FILE['file']['tmp_name'];
+                    $extension = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));       //Récup l'extension du fichier
                     $verifier = getimagesize($_FILES["file"]["tmp_name"]);
-                    //var_dump($verifier);
+                    $tailleActuelle = $verifier['size'];            // ou $_FILES['file']['size'] avant
 
-                    //Test pour vérifier le type du fichier
-                    if($verifier != false)
+                    //S'assurer que fichier pas vide
+                    if($nomTemp=="" && $tailleActuelle=="")
                     {
-                        //echo "Ce fichier est de type ".$verifier["mime"]."<br>";
-                    }
-                    else
-                    {
-                        //echo "Mauvaise extension ! <br>";
-                        $uploadOK = 0;
+                        $uploadOK =0;
+                        echo "Le fichier ne peut être nul <br>";
                     }
 
                     //test si fichier existe déjà
-
-                    if(file_exists($fichier))
+                    if(file_exists($dossier."/".$nouveaunom.".".$extension))
                     {
-                        //echo "Le fichier est déjà présent sur le serveur <br>";
-                        $uploadOK = 0;
-                    }
-
-                    //Vérifier si taille requise
-                    if($_FILES["file"]["size"] > 512000)            //Plus petite que +- 500ko   ou avec $verifier["size"]
-                    {
-                        //echo "Votre fichier est trop gros <br>";
-                        $uploadOK = 0;
-                    }
-
-                    //vérifier l'extension
-                    if($imagetype !="jpg" && $imagetype !="png" && $imagetype !="gif" && $imagetype !="jpeg")
-                    {
-                        //echo "L'image n'a pas la bonne extension";
+                        echo "Le fichier est déjà présent sur le serveur <br>";
                         $uploadOK = 0;
                     }
 
                     // Test si on peut upload
-                    if ($uploadOK == 0)
+                    if ($uploadOK == 1)
                     {
-                        echo "Votre fichier n'est pas uploadé";                        
+                        if ($tailleActuelle < $tailleAutorisee)
+                        {
+                            if(in_array($extensions, $extensionsAutorisees))
+                            {
+                                if (move_uploaded_file($_FILES["file"]["tmp_name"],$fichier)) // Envoye le fichier avec un nom provisoire vers le dossier avec son nom définitif
+                                {
+                                    echo "Fichier uploadé <br>";
+                                    ?>
+                                        <a href="<?= $fichier ?>" class="btn btn-dark">Lien vers le fichier uploadé</a>
+                                    <?php
+                                }
+                                else
+                                {
+                                    echo " Fichier non uploadé <br>";
+                                }
+                            }
+                            else
+                            {
+                                echo "Fichier non uploadé <br> Mauvaise extension <br>";
+                            }
+                        }    
+                        else
+                        {
+                            echo "Fichier non uploadé <br> Mauvaise taille <br>";
+                        }                    
                     }
-                    elseif (move_uploaded_file($_FILES["file"]["tmp_name"],$fichier)) // Envoye le fichier avec un nom provisoire vers le dossier avec son nom définitif
+                    else 
                     {
-                        echo "Fichier uploadé";
-                        ?>
-                            <a href="<?= $fichier ?>" class="btn btn-dark">Lien vers le fichier uploadé</a>
-                        <?php
+                        echo "Fichier non uploadé <br>";
                     }
                     
                 }
-                else {
+                else 
+                {
             ?>
                  <div class="container">
             <h1>Upload d'un fichier - TEST</h1>
