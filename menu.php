@@ -40,8 +40,10 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownDB">
                         <a class="dropdown-item" href="T15_ajoutdb.php">Faire un ajout</a>
                         <a class="dropdown-item" href="T17_modifierdb.php">Faire une modif</a>
-                        
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a href="T19_xmail.php" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-item btn btn-danger" href="destroy.php">Destroy Cookie</a>

@@ -116,11 +116,29 @@
                         $dossier = "upload/";
                         $fichiers = scandir($dossier);
                         //var_dump($fichier);
+                        $imgID = 1;
                         foreach ($fichiers as $fichier)
-                        {
+                        {   
+                            if($fichier=="." || $fichier==".." || $fichier=="index.html")
+                            {
+                                
+                            }
+                            else
+                            {
+
                             ?>
-                                <img src=<?=$dossier."/".$fichier?> alt="">
+                            <div class="item col-xs-6 col-lg-4">
+                                <div class="thumbnail card">
+                                    <div class="imgevent">
+                                        <a id="<?=$imgID?>" href="<?=$dossier."/".$fichier?>" target="_blank">
+                                            <img src="<?=$dossier."/".$fichier?>" alt="" class="group list-group img-fluid">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                             <?php
+                                $imgID++;
+                            }
                         }
                     ?>
 
@@ -130,4 +148,20 @@
         </div>
         <?php include("footer.php") ?>
     </body>
+    <script>
+        $(document).ready(function()
+        {
+            $('#list').click(function(event){
+               event.preventDefault();      
+               $('#images .item').removeClass('grid-group-item');
+               $('#images .item').addClass('list-group-item');
+            });
+
+            $('#grid').click(function(event){
+               event.preventDefault();
+               $('#images .item').removeClass('list-group-item');
+               $('#images .item').addClass('grid-group-item');
+            });
+        });
+    </script>
 </html>
